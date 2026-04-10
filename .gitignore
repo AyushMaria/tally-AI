@@ -1,0 +1,75 @@
+# ============================================================
+# Tally-AI .gitignore
+# Python / FastAPI / AI project
+# ============================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+.env.bak
+
+# --- Environment Variables (secrets!) ---
+.env
+.env.local
+.env.*.local
+
+# --- Distribution / Build ---
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# --- Testing & Coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.coveragerc
+
+# --- Type Checking ---
+.mypy_cache/
+.dmypy.json
+.pytype/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Tally Data (sensitive financial data) ---
+data/
+*.xml
+*.JSON
+
+# --- Logs ---
+logs/
+*.log
+*.log.*
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Misc ---
+*.bak
+*.tmp
+*.swp
+*.swo
