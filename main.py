@@ -54,8 +54,6 @@ async def on_message(message):
     else:
         await message.channel.send(response)
 
-    client.run(DISCORD_BOT_TOKEN)
-
 # --- Start Bot ---
 if __name__ == "__main__":
     print("🚀 Starting Tally Agent...")
