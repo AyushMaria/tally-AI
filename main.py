@@ -2,6 +2,7 @@ import discord
 import os
 from dotenv import load_dotenv
 from agent import run_agent
+import asyncio
 
 load_dotenv()
 
@@ -38,16 +39,22 @@ async def on_message(message):
 
     # Show typing indicator while agent processes
     async with message.channel.typing():
-        print(f"📩 Message from {message.author}: {message.content}")
-        response = run_agent(message.content)
+        print(f"📩 Message from {message.author}: {message.content}")'
+        try:
+            # ✅ KEY FIX: run blocking agent in a thread executor
+            loop = asyncio.get_event_loop()
+            response = await loop.run_in_executor(None, run_agent, message.content)
+        except Exception as e:
+            response = f"❌ Error: {str(e)}"
 
     # Discord has a 2000 char limit — split if needed
-    if len(response) <= 2000:
-        await message.channel.send(response)
+    if len(response) > 2000:
+        for i in range(0, len(response), 2000):
+            await message.channel.send(response[i:i+2000])
     else:
-        chunks = [response[i:i+1990] for i in range(0, len(response), 1990)]
-        for chunk in chunks:
-            await message.channel.send(chunk)
+        await message.channel.send(response)
+
+    client.run(DISCORD_BOT_TOKEN)
 
 # --- Start Bot ---
 if __name__ == "__main__":
