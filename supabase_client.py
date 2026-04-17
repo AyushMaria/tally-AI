@@ -25,3 +25,22 @@ def get_overdue_accounts(min_aging_days=0):
         return response.json()
     else:
         return {"error": f"Supabase error: {response.status_code} — {response.text}"}
+
+
+def get_retailer_outstanding(retailer_name: str):
+    url = f"{SUPABASE_URL}/rest/v1/receivables"
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json"
+    }
+    params = {
+        "select": "*",
+        "retailer_name": f"ilike.*{retailer_name}*",  # case-insensitive partial match
+        "order": "aging_days.desc"
+    }
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": f"Supabase error: {response.status_code} — {response.text}"}
