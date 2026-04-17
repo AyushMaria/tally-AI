@@ -39,7 +39,7 @@ async def on_message(message):
 
     # Show typing indicator while agent processes
     async with message.channel.typing():
-        print(f"📩 Message from {message.author}: {message.content}")'
+        print(f"📩 Message from {message.author}: {message.content}")
         try:
             # ✅ KEY FIX: run blocking agent in a thread executor
             loop = asyncio.get_event_loop()
